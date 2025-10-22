@@ -142,3 +142,76 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+//*** Dustructuring lesson ***//
+
+//* using Quokka to generate in-line text suggestions
+//* open comman pallet (ctrl + p) and type ">Quokka.js: Start on Current File" (this should auto fill if you have it installed on vs code)
+//* any time we log or call a object, it will create a new line in the Quokka tool tab (could be bottom or left, up to you) and reference the object's data and what line its on
+
+const books = getBooks();
+books;
+
+const book1 = getBook(2);
+const title1 = book1.title;
+const author1 = book1.author;
+title1;
+author1;
+console.log(author1, title1);
+
+//*** obj destructuring....
+
+const book = getBook(1);
+book;
+const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
+  book;
+console.log(author, title, genres);
+
+//***** Array Destructuring *****//
+//* Destructuring also works with arrays, but instead of relying on property names, it relies on the order of elements.
+
+//*** Examples
+//* js example
+// const primaryGenre = genres[0];
+// const secondaryGenre = genres[1];
+
+//* destructured array example
+// const [primaryGenre, secondaryGenre] = genres;
+// console.log("Array Destructuring:" + genres);
+
+//*** the 'Rest' operator
+//* the arrest operator (as the teacher pronounces it) or more commonly known asthe 'rest' parameter/operator (rest makes more sense, as in, 'all the rest').
+//* The rest operator only works as the last parameter in the array as it's a catch-all for anything not defined
+const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
+console.log(
+  "Array Destructuring Lesson.",
+  "primaryGenre: " + primaryGenre,
+  "secondaryGenre: " + secondaryGenre,
+  "otherGenres: " + otherGenres
+);
+
+//*** the Spread operator on Arrays
+//* takes values out of the array and places them in the new array
+const newGenres = [...genres, "epic fantasy"]; // or ["epic fantasy", ...genres];
+newGenres;
+
+//*** the Spread operator on Objects
+//* use destructure and spread operator to update/overwrite information
+//* order of operations matter if you are updating information this way. 'Spread' out the exsisting information first before adding duplicate information (thus overwriting)
+const updatedBook = {
+  //* 'Spread' out exsisting info into the new object
+  ...book,
+  // Adding in a new property (because it did not exsist before)
+  moviePublicationDate: "2001-12-19",
+  // Overwriting an exsisting property
+  pages: 1210,
+};
+//* so for example, the below example would not overwrite information that was 'Spread' out from book
+// const updatedBook = {
+//   pages: 1210,
+//   ...book,
+//   moviePublicationDate: "2001-12-19",
+// };
+updatedBook;
+
+// when we learn about State next, we will be using the above fundimentals, so it's important to understand destructuring in order to manipulate State(data)
