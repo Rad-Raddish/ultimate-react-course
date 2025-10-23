@@ -151,7 +151,7 @@ function getBook(id) {
 //*** Dustructuring lesson ***//
 
 //* using Quokka to generate in-line text suggestions
-//* open comman pallet (ctrl + p) and type ">Quokka.js: Start on Current File" (this should auto fill if you have it installed on vs code)
+//* open command pallet (ctrl + p) and type ">Quokka.js: Start on Current File" (this should auto fill if you have it installed on vs code)
 //* any time we log or call a object, it will create a new line in the Quokka tool tab (could be bottom or left, up to you) and reference the object's data and what line its on
 
 const books = getBooks();

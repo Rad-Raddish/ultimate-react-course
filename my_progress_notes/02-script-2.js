@@ -170,7 +170,7 @@ function getTotalReviewCount(book) {
 //* el represents the current element in the array. Think of this like an i in a forloop
 const x = [1, 2, 3, 4, 5].map((el) => el * 2);
 console.log(x);
-
+//* this is a comment, notice how the above quokka 'hint' isn't highlitable/selectable
 const titles = books.map((book) => book.title);
 titles;
 
