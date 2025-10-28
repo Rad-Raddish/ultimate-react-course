@@ -1,0 +1,22 @@
+**Practical Guidelines for Using State**
+Now, to conclude, here are some practical guidelines on how to use state effectively. These guidelines also serve as a summary of state concepts.
+
+- Create a new state variable for any data that a component should track over time. A simple way to identify this is to consider variables that need to change at some point in the future.
+- If you are familiar with building apps in Vanilla JavaScript, these are variables defined with "let" or "var", or arrays or objects that are mutated during the application's lifecycle. In React, you use state for these.
+- Whenever you want something in a component to be dynamic, create a piece of state related to that "thing" and update the state when the "thing" should change, meaning when you need it to be dynamic.
+
+For instance, consider a modal window that can be either open or closed. You can create a state variable called "isOpen" to track whether the modal is currently open. When "isOpen" is true, display the window; if false, hide it.
+
+- Whenever you want to change how a component looks or the data it displays, update its state, usually inside an event handler function.
+- When building components, always imagine the component's view as a reflection of state changing and evolving over time.
+- Avoid using state for every variable in a component. Use state only for variables that should trigger a re-render. For variables that do not require re-rendering, use regular variables defined with "const" to prevent unnecessary re-renders and potential performance issues.
+
+This first set of guidelines about state should be more than enough for now. Internalizing these concepts will make building React applications much easier in the future.
+
+Mastering state is the most challenging part of learning React, but once you overcome this hurdle and truly understand when and how to use state, it will unlock React development for you. This is why so much time has been dedicated to explaining how state works.
+
+**Key Takeaways**
+Each component instance manages its own independent state.
+The entire user interface can be viewed as a function of all component states.
+State should be used for data that changes over time and affects the UI dynamically.
+Avoid using state for variables that do not require re-rendering to prevent performance issues.
