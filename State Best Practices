@@ -20,3 +20,55 @@ Each component instance manages its own independent state.
 The entire user interface can be viewed as a function of all component states.
 State should be used for data that changes over time and affects the UI dynamically.
 Avoid using state for variables that do not require re-rendering to prevent performance issues.
+
+**STATE**
+//_ STATE is Internal data, owned by component, think of it as memory
+//_ are updated by component itself
+//_ updating state causes a re-render
+//_ used to make components interactive
+
+**PROPS**
+//_ PROPS is External data owned by the parent component
+//_ (also known as function parameters from a purely js point of view)
+//_ are read-only (in react, but not so in Angular)
+//_ recieving new props causes component to re-render (usually when parent's state is updated)
+//\* used by parent to configure child component (aka pass it "settings")
+
+**THINKING IN REACT as a process**
+
+// 1. break desired UI into components and establish a component tree
+// 2. build a static version in react (witout state)
+// 3. think about state [statemanagement]:
+/// 3.1 when to use state,
+/// 3.2 types of state [local vs global],
+/// 3.3 where to place each piece of state
+// 4. establish data flow [statemanagement]:
+/// 4.1 one-way data flow
+/// 4.2 child-to-parent communication
+/// 4.3 Accessing global state
+
+\* State is the most important concept in React. Therefore, managing state is the most important aspect when it comes to thinking in React.
+
+**Benefits of Mastering Thinking in React**
+Once you truly know how to think in React, you will be able to answer questions such as:
+
+- How to break up a UI design into components.
+- How to make some components truly reusable.
+- How to assemble a user interface from reusable components.
+- what pieces of state do i need for interactivty
+- where to place state?
+- what types of state can or should be used
+- how to make data flow through the app
+  You will also think extensively about state, including what pieces of state are needed for the desired interactivity, where to place each piece of state, and which component should own each piece of state.
+
+<!-- State Managment -->
+
+- when
+- type
+- where
+- data flow
+
+basically \* give each piece of data a home
+
+Local STATE VS Global State
+state need only by one or few components ||

@@ -15,58 +15,79 @@ function App() {
   const dateRef = useRef(new Date()); //* This is ideal if the date shouldn’t trigger re-renders when it changes.
   console.log("dateRef:", dateRef.current);
 
-  const [step, setStep] = useState(0);
-  const [count, setCount] = useState(2);
+  const [step, setStep] = useState(1);
+  const [count, setCount] = useState(0);
   console.log("App() count: ", count);
 
   //* Instead of mutating with setDate, create a new Date object from the protected date object (aka dateObj)
   const newDate = new Date(dateObj);
-  newDate.setDate(newDate.getDate() + count);
   console.log("newDate:", newDate);
-  const [targetDate, setTargetDate] = useState(newDate.toDateString()); //* initial value set, this will never update again, you have to use the setTargetDate
-  console.log("App() targetDate before:", targetDate);
+  newDate.setDate(newDate.getDate() + count);
+  console.log("newDate after:", newDate);
 
-  function updateStep(inc) {
-    setStep((s) => s + inc);
+  function handleReset() {
+    setStep(1);
+    setCount(0);
   }
 
-  function updateCD(inc) {
-    console.log("updateCD() count before: ", count);
-    setCount((c) => c + inc);
-    console.log("updateCD() count after: ", count);
-
-    const localNewDate = new Date(dateObj);
-    console.log(
-      "updateCD() localNewDate before: ",
-      localNewDate.toDateString()
-    );
-    localNewDate.setDate(localNewDate.getDate() + count);
-    console.log("updateCD() localNewDate after: ", localNewDate.toDateString());
-
-    console.log("updateCD() targetDate before:", targetDate);
-    setTargetDate(localNewDate.toDateString());
-    console.log("updateCD() targetDate after:", targetDate);
-  }
-
-  console.log("App() targetDate after:", targetDate);
+  // function updateStep() {} //* removed
+  // function updateCD() {}   //* removed
 
   console.log("");
   return (
     <>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => updateStep(-1)}>down</button>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={step}
+          onChange={(e) => setStep(Number(e.target.value))}
+        />{" "}
+        <br />
+        {/*vv the 'right' way vv*/}
+        <button onClick={() => setStep((c) => c - 1)}>-</button>
+        <span>Step: {step}</span>
+        <button onClick={() => setStep((c) => c + 1)}>+</button>
+        {/*^^ the 'right' way ^^*/}
+        {/*vv the 'wrong' way vv*/}
+        {/*<button onClick={() => updateStep(-1)}>down</button>
         Step: {step}
-        <button onClick={() => updateStep(1)}>up</button>
+        <button onClick={() => updateStep(1)}>up</button>*/}
+        {/*^^ the 'wrong' way ^^*/}
       </div>
+      <input
+        type="text"
+        value={count}
+        onChange={(e) => setCount(Number(e.target.value))}
+      />{" "}
       <div className="card">
-        <button onClick={() => updateCD(-1)}>down</button>
+        {/*vv the 'right' way vv*/}
+        <button onClick={() => setCount((c) => c - step)}>-</button>
+        <span>Count: {step}</span>
+        <button onClick={() => setCount((c) => c + step)}>+</button>
+        {/*^^ the 'right' way ^^*/}
+        {/*vv the 'wrong' way vv*/}
+        {/*<button onClick={() => updateCD(-1)}>down</button>
         Count: {count}
-        <button onClick={() => updateCD(1)}>up</button>
+        <button onClick={() => updateCD(1)}>up</button>*/}
+        {/*^^ the 'wrong' way ^^*/}
       </div>
+      {count !== 0 || step !== 1 ? (
+        <div>
+          <button onClick={handleReset}>ReSET</button>
+        </div>
+      ) : null}
       <p className="read-the-docs">
-        {count} days from today is {targetDate}
-        {/* targetDate.toDateString() */}
+        <span>
+          {count === 0
+            ? "Today is "
+            : count > 0
+            ? `${count} days from today is `
+            : `${Math.abs(count)} days ago was `}
+        </span>
+        <span>{newDate.toDateString()}</span>
       </p>
     </>
   );
