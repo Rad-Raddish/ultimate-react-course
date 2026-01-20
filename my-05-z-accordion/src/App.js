@@ -29,17 +29,45 @@ export default function App() {
 }
 
 function Accordion({data}) {
+  const [currentOpen, setCurrentOpen] = useState(null);
+
   return <div className='accordion'>
-    {data.map((el, i)=>(<AccordionItem key={el.title} title={el.title} text={el.text} num={i}/>
+    {/* example of replacing text={} prop with a children prop */}
+    {data.map((el, i)=>(<AccordionItem 
+      currentOpen={currentOpen} 
+      onOpen={setCurrentOpen} 
+      key={el.title} 
+      title={el.title} 
+      // text={el.text} //old example without children props
+      num={i}>
+        {el.text} 
+      </AccordionItem>
     ))}
+    <AccordionItem 
+      currentOpen={currentOpen} 
+      onOpen={setCurrentOpen} 
+      key="unique id 101" 
+      title="Static Text" 
+      num={3}>
+        <p>The map() method of Array instances creates a new array populated with the results of calling a provided function on every element in the calling array.</p>
+      </AccordionItem>
     </div>;
 }
 
-function AccordionItem({num, title, text}){
-  const [isOpen, setIsOpen] = useState(false);
+function AccordionItem({num, title, currentOpen, onOpen, children}){
+  // const [isOpen, setIsOpen] = useState(false); //before example that uses children props
+
+  //updated with children props example
+  const isOpen = num === currentOpen; // 1 is === to 1 and then it becomes true
 
   function handleToggle(){
-    setIsOpen(current => !current)
+    // example from before children props were used
+    // setIsOpen(current => !current)
+
+    // children props with parent to child relationship
+    // the parent hands the child a function which the child updates
+    //onOpen(num); //this can no longer click and close itself
+    onOpen(isOpen ? null : num); //this can close itself when clicked
   }
 
   return <div className={`item ${isOpen ? "open" : ""}`} onClick={handleToggle}>
@@ -47,6 +75,6 @@ function AccordionItem({num, title, text}){
     <p className="title">{title}</p>
     <p className='icon'>{isOpen ? "-" : "+"}</p>
 
-    {isOpen && <div className="content-box">{text}</div>}
+    {isOpen && <div className="content-box">{children}</div>}
   </div>
 }
